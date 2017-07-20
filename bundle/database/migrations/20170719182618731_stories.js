@@ -14,7 +14,15 @@ module.exports = {
                 type: DataTypes.INTEGER,
                 allowNull: false
             },
-            title: {
+            lat: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            lng: {
+                type: DataTypes.TEXT,
+                allowNull: false
+            },
+            cuisine: {
                 type: DataTypes.TEXT,
                 allowNull: false
             },
@@ -22,7 +30,7 @@ module.exports = {
                 type: DataTypes.TEXT,
                 allowNull: false
             },
-            body: {
+            story: {
                 type: DataTypes.TEXT,
                 allowNull: false
             },

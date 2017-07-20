@@ -5,8 +5,10 @@ var app_1 = require("../config/app");
 var database_1 = require("../config/database");
 var home_controller_1 = require("../app/controllers/home-controller");
 var auth_controller_1 = require("../app/controllers/auth-controller");
+var story_controller_1 = require("../app/controllers/story-controller");
 core_1.IOC.Container.bind(core_1.Types.ServerConfig).to(app_1.SrvConf);
 core_1.IOC.Container.bind(core_1.Types.DatabaseConfig).to(database_1.DatabaseConfig);
 core_1.IOC.Container.bind(home_controller_1.HomeController).to(home_controller_1.HomeController);
 core_1.IOC.Container.bind(core_1.Types.AuthGuard).to(auth_controller_1.AuthController);
+core_1.IOC.Container.bind(story_controller_1.StoryController).to(story_controller_1.StoryController);
 //# sourceMappingURL=ioc-bindings.js.map

@@ -63,29 +63,66 @@ export class AuthController implements Types.AuthGuard {
         }
 
         let UserModel = UserModelFactory();
+        let userSearchCondition = credentials.provider === 'Facebook' ?
+            {email: credentials.username} :
+            {email: credentials.username, password: credentials.password};
+
         UserModel.findOne({
-            where: {email: credentials.username, password: credentials.password}
+            where: userSearchCondition
         }).then((user: any) => {
             if (!user) {
+                this.logger.error('User not found in db');
                 if (credentials.provider === 'Facebook') {
-                    UserModel.create({
-                        email: credentials.username,
-                        password: credentials.password
-                    }).then((newUser: any) => {
-                        let token = this.signToken(newUser);
-                        res.send(200, token);
-                        next();
-                    });
+                    this.createUser(credentials)
+                        .then((newUser) => {
+                            let token = this.signToken(newUser);
+                            res.send(200, {token});
+                            next();
+                        });
                 } else {
                     res.send(401, 'Unauthorized');
                     next();
                 }
             } else {
                 let token = this.signToken(user);
-                res.send(200, token);
+                res.send(200, {email: user.email, token});
                 next();
             }
         });
+    }
+
+    signup (req, res, next) {
+        let credentials: ICredentials;
+
+        try {
+            credentials = this.getCredentials(req);
+            this.logger.info('Create new user', credentials);
+        } catch (ex) {
+            if(ex.message === 'Credentials Required') {
+                res.header('WWW-Authenticate', 'Basic');
+                res.send(401, 'Unauthorized');
+                return;
+            } else {
+                res.send(401, 'Unauthorized');
+            }
+        }
+
+        let UserModel = UserModelFactory();
+        let userSearchCondition = credentials.provider === 'Facebook' ?
+            {email: credentials.username} :
+            {email: credentials.username, password: credentials.password};
+
+        UserModel.findOne({
+            where: userSearchCondition
+        }).then((user) => {
+            if (!user) {
+                let newUser = this.createUser(credentials);
+                res.send(200);
+                next();
+            } else {
+                res.send(200, {status: 'ERROR', message: 'Duplicate user'});
+            }
+        }).catch(err => console.log(err));
     }
 
     private getCredentials (req): ICredentials {
@@ -101,6 +138,17 @@ export class AuthController implements Types.AuthGuard {
         this.logger.info({user: auth});
 
         return {username, password, provider};
+    }
+
+    private async createUser (credentials: ICredentials) {
+        let UserModel = UserModelFactory();
+
+        let newUser = await UserModel.create({
+                            email: credentials.username,
+                            password: credentials.password
+                        });
+        let token = this.signToken(newUser);
+        return newUser;
     }
 
     private signToken (user: any): string {

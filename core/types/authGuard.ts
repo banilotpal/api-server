@@ -4,4 +4,5 @@ export abstract class AuthGuard {
     abstract initialize(options?: any): Function;
     abstract authenticate(): Function;
     abstract authorize(req: Request, res: Response, next: Next): void;
+    abstract signup(req: Request, res: Response, next: Next): void;
 }

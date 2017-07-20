@@ -14,7 +14,7 @@ export let signup: Types.HttpRoute = {
     method: 'POST',
     path: '/signup',
     name: 'signup',
-    handler: function (req, res, next) { res.send(200); },
+    handler: loginController.signup,
     protected: false
 };
 
