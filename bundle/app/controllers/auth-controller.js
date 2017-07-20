@@ -42,31 +42,64 @@ var AuthController = (function () {
     };
     AuthController.prototype.authorize = function (req, res, next) {
         var _this = this;
-        var auth = req.authorization.basic;
-        if (!auth) {
-            res.header('WWW-Authenticate', 'Basic');
-            res.send(401, 'Unauthorized');
-            return;
+        var credentials;
+        try {
+            credentials = this.getCredentials(req);
         }
-        var username = auth.username, password = auth.password;
-        this.logger.info({ user: auth });
-        var UserModel = user_model_1.UserModelFactory();
-        UserModel.findOne({
-            where: { username: username, password: password }
-        }).then(function (user) {
-            if (!user) {
+        catch (ex) {
+            if (ex.message === 'Credentials Required') {
+                res.header('WWW-Authenticate', 'Basic');
                 res.send(401, 'Unauthorized');
-                next();
+                return;
             }
             else {
-                var signOptions = {
-                    expiresIn: '1m'
-                };
-                var token = jsonwebtoken_1.sign({ user: user.id }, _this.config.secretKey, signOptions);
+                res.send(401, 'Unauthorized');
+            }
+        }
+        var UserModel = user_model_1.UserModelFactory();
+        UserModel.findOne({
+            where: { email: credentials.username, password: credentials.password }
+        }).then(function (user) {
+            if (!user) {
+                if (credentials.provider === 'Facebook') {
+                    UserModel.create({
+                        email: credentials.username,
+                        password: credentials.password
+                    }).then(function (newUser) {
+                        var token = _this.signToken(newUser);
+                        res.send(200, token);
+                        next();
+                    });
+                }
+                else {
+                    res.send(401, 'Unauthorized');
+                    next();
+                }
+            }
+            else {
+                var token = _this.signToken(user);
                 res.send(200, token);
                 next();
             }
         });
+    };
+    AuthController.prototype.getCredentials = function (req) {
+        var provider = req.headers['x-login-provider'];
+        if (provider === undefined) {
+            throw new Error('Invalid request. Login provider is required.');
+        }
+        var auth = req.authorization.basic;
+        if (!auth) {
+            throw new Error('Credentials Required');
+        }
+        var username = auth.username, password = auth.password;
+        this.logger.info({ user: auth });
+        return { username: username, password: password, provider: provider };
+    };
+    AuthController.prototype.signToken = function (user) {
+        var signOptions = {};
+        var token = jsonwebtoken_1.sign({ user: user.id }, this.config.secretKey, signOptions);
+        return token;
     };
     return AuthController;
 }());

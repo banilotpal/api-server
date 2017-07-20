@@ -117,13 +117,37 @@ export class StreamTalk {
         this.instance.use(jsonp());
         this.instance.use(gzipResponse());
         this.instance.use(bodyParser());
-        this.instance.use(CORS());
         this.instance.use(responseTime());
         if (this.auth.enabled) {
             this.instance.use(this.auth.initialize());
         }
-        this.instance.use(CORS());
+
         this.instance.use(fullResponse());
+
+        this.instance.opts('/\.*/', (req, res, next) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            // tslint:disable-next-line:max-line-length
+            res.setHeader('Access-Control-Allow-Headers',
+                            'Origin, Accept,' +
+                            'Accept-Version,' +
+                            'Content-Length,' +
+                            'Content-MD5,' +
+                            'Content-Type,' +
+                            'Date,' +
+                            'X-Api-Version,' +
+                            'X-Response-Time,' +
+                            'X-Token,' +
+                            'X-Login-Provider,' +
+                            'X-CSRF-Token,' +
+                            'Authorization');
+            res.setHeader('Access-Control-Allow-Methods', '*');
+            res.setHeader('Access-Control-Expose-Headers', 'X-Api-Version, X-Request-Id, X-Response-Time');
+            res.setHeader('Access-Control-Max-Age', '1000');
+            return next();
+        }, (req, res, next) => {
+            res.send(200);
+            return next();
+        });
 
         this.instance.on('after', auditLogger({
             log: this.logger

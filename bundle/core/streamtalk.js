@@ -92,13 +92,33 @@ var StreamTalk = (function () {
         this.instance.use(restify_1.jsonp());
         this.instance.use(restify_1.gzipResponse());
         this.instance.use(restify_1.bodyParser());
-        this.instance.use(restify_1.CORS());
         this.instance.use(responseTime());
         if (this.auth.enabled) {
             this.instance.use(this.auth.initialize());
         }
-        this.instance.use(restify_1.CORS());
         this.instance.use(restify_1.fullResponse());
+        this.instance.opts('/\.*/', function (req, res, next) {
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.setHeader('Access-Control-Allow-Headers', 'Origin, Accept,' +
+                'Accept-Version,' +
+                'Content-Length,' +
+                'Content-MD5,' +
+                'Content-Type,' +
+                'Date,' +
+                'X-Api-Version,' +
+                'X-Response-Time,' +
+                'X-Token,' +
+                'X-Login-Provider,' +
+                'X-CSRF-Token,' +
+                'Authorization');
+            res.setHeader('Access-Control-Allow-Methods', '*');
+            res.setHeader('Access-Control-Expose-Headers', 'X-Api-Version, X-Request-Id, X-Response-Time');
+            res.setHeader('Access-Control-Max-Age', '1000');
+            return next();
+        }, function (req, res, next) {
+            res.send(200);
+            return next();
+        });
         this.instance.on('after', restify_1.auditLogger({
             log: this.logger
         }));

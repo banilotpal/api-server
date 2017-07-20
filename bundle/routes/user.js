@@ -9,6 +9,13 @@ exports.login = {
     handler: loginController.authorize,
     protected: false
 };
+exports.signup = {
+    method: 'POST',
+    path: '/signup',
+    name: 'signup',
+    handler: function (req, res, next) { res.send(200); },
+    protected: false
+};
 exports.profile = {
     method: 'GET',
     path: '/profile',

@@ -3,22 +3,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tableName = '';
 module.exports = {
     up: function (query, DataTypes) {
-        return query.createTable('users', {
+        return query.createTable('location', {
             id: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 primaryKey: true,
                 autoIncrement: true
             },
-            email: {
+            stall_name: {
                 type: DataTypes.TEXT,
                 allowNull: false
             },
-            password: {
+            address: {
                 type: DataTypes.TEXT,
                 allowNull: false
             },
-            provider: {
+            lat: {
+                type: DataTypes.TEXT,
+                allowNull: false,
+                defaultValue: 'LOCAL'
+            },
+            lon: {
                 type: DataTypes.TEXT,
                 allowNull: false,
                 defaultValue: 'LOCAL'
@@ -34,7 +39,7 @@ module.exports = {
         });
     },
     down: function (query, DataTypes) {
-        return query.dropTable('users');
+        return query.dropTable('location');
     }
 };
-//# sourceMappingURL=20170628142431338_user_table.js.map
+//# sourceMappingURL=20170719182909910_location.js.map

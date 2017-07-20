@@ -3,25 +3,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tableName = '';
 module.exports = {
     up: function (query, DataTypes) {
-        return query.createTable('users', {
+        return query.createTable('stories', {
             id: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 primaryKey: true,
                 autoIncrement: true
             },
-            email: {
+            author_id: {
+                type: DataTypes.INTEGER,
+                allowNull: false
+            },
+            title: {
                 type: DataTypes.TEXT,
                 allowNull: false
             },
-            password: {
+            summary: {
                 type: DataTypes.TEXT,
                 allowNull: false
             },
-            provider: {
+            body: {
                 type: DataTypes.TEXT,
-                allowNull: false,
-                defaultValue: 'LOCAL'
+                allowNull: false
             },
             createdAt: {
                 type: DataTypes.DATE,
@@ -34,7 +37,7 @@ module.exports = {
         });
     },
     down: function (query, DataTypes) {
-        return query.dropTable('users');
+        return query.dropTable('stories');
     }
 };
-//# sourceMappingURL=20170628142431338_user_table.js.map
+//# sourceMappingURL=20170719182618731_stories.js.map

@@ -10,6 +10,14 @@ export let login: Types.HttpRoute = {
     protected: false
 };
 
+export let signup: Types.HttpRoute = {
+    method: 'POST',
+    path: '/signup',
+    name: 'signup',
+    handler: function (req, res, next) { res.send(200); },
+    protected: false
+};
+
 export let profile: Types.HttpRoute = {
     method: 'GET',
     path: '/profile',

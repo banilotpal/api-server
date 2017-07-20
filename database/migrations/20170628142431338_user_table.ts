@@ -14,13 +14,18 @@ module.exports = {
                 primaryKey: true,
                 autoIncrement: true
             },
-            username: {
+            email: {
                 type: DataTypes.TEXT,
                 allowNull: false
             },
             password: {
                 type: DataTypes.TEXT,
                 allowNull: false
+            },
+            provider: {
+                type: DataTypes.TEXT,
+                allowNull: false,
+                defaultValue: 'LOCAL'
             },
             createdAt: {
                 type: DataTypes.DATE,

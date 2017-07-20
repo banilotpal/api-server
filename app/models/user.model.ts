@@ -6,10 +6,13 @@ function factory () {
     const client = database.client();
 
     let UserModel = client.define('user', {
-        username: {
+        email: {
             type: Sequelize.STRING
         },
         password: {
+            type: Sequelize.STRING
+        },
+        provider: {
             type: Sequelize.STRING
         }
     });
