@@ -6,7 +6,7 @@ bundle/storage
 bundle/test
 
 # dotenv environment variables file
-env.[jt]s
+# env.[jt]s
 
 # Logs
 *.log
