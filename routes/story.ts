@@ -11,10 +11,26 @@ export let createStory: Types.HttpRoute = {
     protected: true
 };
 
-export let listStories: Types.HttpRoute = {
+export let deleteStory: Types.HttpRoute = {
+    method: 'DELETE',
+    path: '/story',
+    name: 'delete story',
+    handler: storyController.delete,
+    protected: true
+};
+
+export let userStories: Types.HttpRoute = {
     method: 'GET',
     path: '/story',
     name: 'list story',
     handler: storyController.list,
     protected: true
+};
+
+export let locationBasedStories: Types.HttpRoute = {
+    method: 'GET',
+    path: '/localisedStories',
+    name: 'list location based stories',
+    handler: storyController.locationBasedStories,
+    protected: false
 };

@@ -10,11 +10,25 @@ exports.createStory = {
     handler: storyController.create,
     protected: true
 };
-exports.listStories = {
+exports.deleteStory = {
+    method: 'DELETE',
+    path: '/story',
+    name: 'delete story',
+    handler: storyController.delete,
+    protected: true
+};
+exports.userStories = {
     method: 'GET',
     path: '/story',
     name: 'list story',
     handler: storyController.list,
     protected: true
+};
+exports.locationBasedStories = {
+    method: 'GET',
+    path: '/localisedStories',
+    name: 'list location based stories',
+    handler: storyController.locationBasedStories,
+    protected: false
 };
 //# sourceMappingURL=story.js.map

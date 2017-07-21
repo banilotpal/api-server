@@ -29,7 +29,7 @@ var StoryController = (function () {
     };
     StoryController.prototype.create = function (req, res, next) {
         var storyObject = req.body['story'];
-        var lat = storyObject.lat, lng = storyObject.lng, cuisine = storyObject.cuisine, summary = storyObject.summary, story = storyObject.story;
+        var lat = storyObject.lat, lng = storyObject.lng, cuisine = storyObject.cuisine, summary = storyObject.summary, image_key = storyObject.image_key, story = storyObject.story;
         var authorId = req.user['user'];
         var StoryModel = story_model_1.StoryModelFactory();
         StoryModel.create({
@@ -38,10 +38,30 @@ var StoryController = (function () {
             lng: lng,
             cuisine: cuisine,
             summary: summary,
+            image_key: image_key,
             story: story
         }).then(function (newStory) {
             res.send(200);
         }).catch(function (err) { return console.log(err); });
+    };
+    StoryController.prototype.delete = function (req, res, next) {
+        var storyId = req.body['storyId'];
+        var authorId = req.user['user'];
+        console.log(storyId, authorId);
+        var StoryModel = story_model_1.StoryModelFactory();
+        StoryModel.destroy({
+            where: { id: storyId }
+        }).then(function (result) {
+            res.send(200);
+        }).catch(function (err) { return console.log(err); });
+    };
+    StoryController.prototype.locationBasedStories = function (req, res, next) {
+        var StoryModel = story_model_1.StoryModelFactory();
+        StoryModel.findAll()
+            .then(function (stories) {
+            res.send(200, stories);
+        })
+            .catch(function (err) { return console.log(err); });
     };
     return StoryController;
 }());

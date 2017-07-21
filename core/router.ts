@@ -70,11 +70,11 @@ export class Router {
             case 'DELETE':
                 server.del({path: route.path, name: route.name, version: route.versions}, route.middlewares, route.handler);
                 break;
-            case 'OPTIONS':
-                // TODO: handle CORS
-                server.opts({path: route.path, name: route.name, version: route.versions}, route.middlewares, route.handler);
-                console.log(server);
-                break;
+            // case 'OPTIONS':
+            //     // TODO: handle CORS
+            //     server.opts({path: route.path, name: route.name, version: route.versions}, route.middlewares, route.handler);
+            //     console.log(server);
+            //     break;
             default:
                 server.get({path: route.path, name: route.name, version: route.versions}, route.middlewares, route.handler);
                 break;

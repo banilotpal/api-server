@@ -21,6 +21,9 @@ function factory () {
         summary: {
             type: Sequelize.STRING
         },
+        image_key: {
+            type: Sequelize.STRING
+        },
         story: {
             type: Sequelize.STRING
         }

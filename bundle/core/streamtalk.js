@@ -111,7 +111,7 @@ var StreamTalk = (function () {
                 'X-Login-Provider,' +
                 'X-CSRF-Token,' +
                 'Authorization');
-            res.setHeader('Access-Control-Allow-Methods', '*');
+            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE, DEL');
             res.setHeader('Access-Control-Expose-Headers', 'X-Api-Version, X-Request-Id, X-Response-Time');
             res.setHeader('Access-Control-Max-Age', '1000');
             return next();

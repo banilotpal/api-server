@@ -126,7 +126,6 @@ export class StreamTalk {
 
         this.instance.opts('/\.*/', (req, res, next) => {
             res.setHeader('Access-Control-Allow-Origin', '*');
-            // tslint:disable-next-line:max-line-length
             res.setHeader('Access-Control-Allow-Headers',
                             'Origin, Accept,' +
                             'Accept-Version,' +
@@ -140,7 +139,7 @@ export class StreamTalk {
                             'X-Login-Provider,' +
                             'X-CSRF-Token,' +
                             'Authorization');
-            res.setHeader('Access-Control-Allow-Methods', '*');
+            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE, DEL');
             res.setHeader('Access-Control-Expose-Headers', 'X-Api-Version, X-Request-Id, X-Response-Time');
             res.setHeader('Access-Control-Max-Age', '1000');
             return next();
