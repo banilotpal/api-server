@@ -1,0 +1,19 @@
+version: 0.0
+os: linux
+files:
+   - source: /
+     destination: /
+permissions:
+   - object: /
+     pattern: "**"
+     owner: ubuntu
+     mode: 755
+     type:
+       - file
+hooks:
+   BeforeInstall:
+    - location: deployment_scripts/install_node.sh
+      runas: root
+   AfterInstall:
+    - location: deployment_scripts/start_api_server.sh
+      runas: root
