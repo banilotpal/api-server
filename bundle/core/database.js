@@ -83,12 +83,12 @@ var Database = (function () {
         enumerable: true,
         configurable: true
     });
+    Database = __decorate([
+        es6_1.Singleton,
+        __param(0, es6_1.Inject), __param(1, es6_1.Inject),
+        __metadata("design:paramtypes", [types_1.DatabaseConfig, log_provider_1.LogProvider])
+    ], Database);
     return Database;
 }());
-Database = __decorate([
-    es6_1.Singleton,
-    __param(0, es6_1.Inject), __param(1, es6_1.Inject),
-    __metadata("design:paramtypes", [types_1.DatabaseConfig, log_provider_1.LogProvider])
-], Database);
 exports.Database = Database;
 //# sourceMappingURL=database.js.map

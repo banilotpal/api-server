@@ -13,8 +13,9 @@ const seed = {
         for (let i = 0; i < ROW_COUNT; i++) {
             try {
                 await UserModel.create({
-                    username: Faker.internet.userName(),
-                    password: Faker.internet.password()
+                    email: Faker.internet.userName(),
+                    password: Faker.internet.password(),
+                    provider: 'Local'
                 });
             } catch (err) {
                 throw err;

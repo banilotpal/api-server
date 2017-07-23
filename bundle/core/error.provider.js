@@ -30,15 +30,15 @@ var ErrorProvider = (function (_super) {
         this.message = 'App secret key is not defined';
         throw this;
     };
+    __decorate([
+        es6_1.Inject,
+        __metadata("design:type", i18n_provider_1.I18N)
+    ], ErrorProvider.prototype, "i18n", void 0);
+    ErrorProvider = __decorate([
+        es6_1.AutoWired,
+        __metadata("design:paramtypes", [])
+    ], ErrorProvider);
     return ErrorProvider;
 }(Error));
-__decorate([
-    es6_1.Inject,
-    __metadata("design:type", i18n_provider_1.I18N)
-], ErrorProvider.prototype, "i18n", void 0);
-ErrorProvider = __decorate([
-    es6_1.AutoWired,
-    __metadata("design:paramtypes", [])
-], ErrorProvider);
 exports.ErrorProvider = ErrorProvider;
 //# sourceMappingURL=error.provider.js.map

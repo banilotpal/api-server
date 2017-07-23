@@ -81,13 +81,13 @@ var Router = (function () {
     Router.prototype.valid = function (route) {
         return 'path' in route && 'handler' in route;
     };
+    Router = __decorate([
+        __param(0, es6_1.Inject),
+        __param(1, es6_1.Inject),
+        __metadata("design:paramtypes", [authenticator_1.Authenticator,
+            log_provider_1.LogProvider])
+    ], Router);
     return Router;
 }());
-Router = __decorate([
-    __param(0, es6_1.Inject),
-    __param(1, es6_1.Inject),
-    __metadata("design:paramtypes", [authenticator_1.Authenticator,
-        log_provider_1.LogProvider])
-], Router);
 exports.Router = Router;
 //# sourceMappingURL=router.js.map

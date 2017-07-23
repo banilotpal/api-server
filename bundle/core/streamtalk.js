@@ -127,20 +127,20 @@ var StreamTalk = (function () {
     StreamTalk.prototype.setupRouting = function () {
         this.router.setup(this.instance, this.config.routesFolder);
     };
+    StreamTalk = __decorate([
+        es6_1.Singleton,
+        __param(0, es6_1.Inject),
+        __param(1, es6_1.Inject),
+        __param(2, es6_1.Inject),
+        __param(3, es6_1.Inject),
+        __param(4, es6_1.Inject),
+        __metadata("design:paramtypes", [types_1.ServerConfig,
+            router_1.Router,
+            authenticator_1.Authenticator,
+            error_provider_1.ErrorProvider,
+            log_provider_1.LogProvider])
+    ], StreamTalk);
     return StreamTalk;
 }());
-StreamTalk = __decorate([
-    es6_1.Singleton,
-    __param(0, es6_1.Inject),
-    __param(1, es6_1.Inject),
-    __param(2, es6_1.Inject),
-    __param(3, es6_1.Inject),
-    __param(4, es6_1.Inject),
-    __metadata("design:paramtypes", [types_1.ServerConfig,
-        router_1.Router,
-        authenticator_1.Authenticator,
-        error_provider_1.ErrorProvider,
-        log_provider_1.LogProvider])
-], StreamTalk);
 exports.StreamTalk = StreamTalk;
 //# sourceMappingURL=streamtalk.js.map

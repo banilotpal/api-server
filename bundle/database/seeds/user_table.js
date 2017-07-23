@@ -8,8 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t;
-    return { next: verb(0), "throw": verb(1), "return": verb(2) };
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
@@ -47,7 +47,7 @@ var seed = {
             switch (_a.label) {
                 case 0:
                     UserModel = user_model_1.UserModelFactory();
-                    return [4 /*yield*/, UserModel.destroy({
+                    return [4, UserModel.destroy({
                             truncate: true
                         })];
                 case 1:
@@ -56,24 +56,25 @@ var seed = {
                     i = 0;
                     _a.label = 2;
                 case 2:
-                    if (!(i < ROW_COUNT)) return [3 /*break*/, 7];
+                    if (!(i < ROW_COUNT)) return [3, 7];
                     _a.label = 3;
                 case 3:
                     _a.trys.push([3, 5, , 6]);
-                    return [4 /*yield*/, UserModel.create({
-                            username: Faker.internet.userName(),
-                            password: Faker.internet.password()
+                    return [4, UserModel.create({
+                            email: Faker.internet.userName(),
+                            password: Faker.internet.password(),
+                            provider: 'Local'
                         })];
                 case 4:
                     _a.sent();
-                    return [3 /*break*/, 6];
+                    return [3, 6];
                 case 5:
                     err_1 = _a.sent();
                     throw err_1;
                 case 6:
                     i++;
-                    return [3 /*break*/, 2];
-                case 7: return [2 /*return*/];
+                    return [3, 2];
+                case 7: return [2];
             }
         });
     }); }

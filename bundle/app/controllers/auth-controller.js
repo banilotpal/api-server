@@ -20,8 +20,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t;
-    return { next: verb(0), "throw": verb(1), "return": verb(2) };
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
@@ -174,14 +174,14 @@ var AuthController = (function () {
                 switch (_a.label) {
                     case 0:
                         UserModel = user_model_1.UserModelFactory();
-                        return [4 /*yield*/, UserModel.create({
+                        return [4, UserModel.create({
                                 email: credentials.username,
                                 password: credentials.password
                             })];
                     case 1:
                         newUser = _a.sent();
                         token = this.signToken(newUser);
-                        return [2 /*return*/, newUser];
+                        return [2, newUser];
                 }
             });
         });
@@ -191,13 +191,13 @@ var AuthController = (function () {
         var token = jsonwebtoken_1.sign({ user: user.id }, this.config.secretKey, signOptions);
         return token;
     };
+    AuthController = __decorate([
+        core_1.Decorators.autobind,
+        __param(0, core_1.IOC.Inject),
+        __param(1, core_1.IOC.Inject),
+        __metadata("design:paramtypes", [core_1.Types.ServerConfig, core_1.LogProvider])
+    ], AuthController);
     return AuthController;
 }());
-AuthController = __decorate([
-    core_1.Decorators.autobind,
-    __param(0, core_1.IOC.Inject),
-    __param(1, core_1.IOC.Inject),
-    __metadata("design:paramtypes", [core_1.Types.ServerConfig, core_1.LogProvider])
-], AuthController);
 exports.AuthController = AuthController;
 //# sourceMappingURL=auth-controller.js.map

@@ -31,11 +31,11 @@ var Authenticator = (function () {
     Authenticator.prototype.authenticate = function () {
         return this.authGuard.authenticate();
     };
+    Authenticator = __decorate([
+        __param(0, es6_1.Inject),
+        __metadata("design:paramtypes", [types_1.AuthGuard])
+    ], Authenticator);
     return Authenticator;
 }());
-Authenticator = __decorate([
-    __param(0, es6_1.Inject),
-    __metadata("design:paramtypes", [types_1.AuthGuard])
-], Authenticator);
 exports.Authenticator = Authenticator;
 //# sourceMappingURL=authenticator.js.map

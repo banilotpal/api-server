@@ -46,6 +46,7 @@ describe ('authentication', () => {
     it ('expects basic auth headers', (done) => {
         request(app)
             .post('/login')
+            .set('x-login-provider', 'Local')
             .expect(401)
             .expect('WWW-Authenticate', 'Basic', done);
     });
@@ -65,19 +66,21 @@ describe ('authentication', () => {
             truncate: true
         }).then(() => {
             UserModel.create({
-                username: username,
+                email: username,
                 password: password
             }).then(() => {
                 request(app)
                     .post('/login')
+                    .set('x-login-provider', 'LOCAL')
                     .auth(username, password)
                     .expect(200)
                     .end(function (err, res) {
                         if (err) {
                             done(err);
                         } else {
-                            expect(validateJWTStructure(res.body)).to.be.equal(true);
-                            authToken = res.body;
+                            // tslint:disable-next-line:no-string-literal
+                            authToken = res.body['token'];
+                            expect(validateJWTStructure(authToken)).to.be.equal(true);
                             done();
                         }
                     });
